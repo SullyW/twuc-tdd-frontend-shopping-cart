@@ -26,7 +26,7 @@ const ShoppingCart = () => {
 
         <tbody>
           {products.map((product) => (
-            <tr className="table-row product">
+            <tr className="table-row product" key={product.id}>
               <td className="table-cell align-left">{product.name}</td>
               <td className="table-cell align-right">{product.price}</td>
               <td className="table-cell align-right">{product.count}</td>
