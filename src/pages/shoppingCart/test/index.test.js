@@ -1,4 +1,4 @@
-import { render, waitFor } from "@testing-library/react";
+import { render, waitFor, getByText } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import React from "react";
 import ShoppingCart from "../index";
@@ -25,7 +25,7 @@ describe("Shopping Cart", () => {
     expect(getByText("单价")).toBeInTheDocument();
   });
 
-  test("should show prodcut list in shopping cart page, given product is not empty", () => {
+  test("should show product list in shopping cart page, given product is not empty", async () => {
     const mockProducts = [
       { id: 1, name: "小米手环", price: 299, count: 1 },
       { id: 2, name: "任天堂 Nintendo Switch", price: 2099, count: 2 },
@@ -40,13 +40,13 @@ describe("Shopping Cart", () => {
     getProducts.mockResolvedValue(mockProducts);
     const { container } = render(<ShoppingCart />);
 
-    waitFor(() => {
-      const products = container.getElementsByClassName("product");
+    await waitFor(() => {
+      const products = Array.from(container.getElementsByClassName("product"));
       expect(products).toHaveLength(mockProducts.length);
       products.forEach((product, i) => {
-        expect(product.getByText(mockProducts[i].name)).toBeInTheDocument();
-        expect(product.getByText(mockProducts[i].price)).toBeInTheDocument();
-        expect(product.getByText(mockProducts[i].count)).toBeInTheDocument();
+        expect(getByText(product, mockProducts[i].name)).toBeInTheDocument();
+        expect(getByText(product, mockProducts[i].price)).toBeInTheDocument();
+        expect(getByText(product, mockProducts[i].count)).toBeInTheDocument();
       });
     });
   });
