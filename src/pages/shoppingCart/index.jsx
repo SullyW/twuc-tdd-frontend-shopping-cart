@@ -4,10 +4,16 @@ import {getProducts} from './services';
 
 const ShoppingCart = () => {
   const [products, setProducts] = useState([]);
+  const [price, setPrice] = useState(0);
 
   useEffect( () => {
     getProducts().then(data => {
       setProducts(data);
+      let total = 0;
+      data.forEach(item => {
+        total += item.price * item.count;
+      });
+      setPrice(total);
     });
   }, []);
 
@@ -32,8 +38,10 @@ const ShoppingCart = () => {
               </tr>
             );
           })}
-
         </tbody>
+        <div className="operation" >
+          <div className="total" >总价：{price}</div>
+        </div>
       </table>
     </div>
   );
