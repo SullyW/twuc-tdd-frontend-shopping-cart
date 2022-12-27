@@ -8,12 +8,13 @@ describe('dataHelper', () => {
   it('should get server data', async () => {
     //Given  axios   data
     axios.get.mockResolvedValue('success');
+    const requestPath = 'http://localhost:8000/';
 
     // When
-    const result = await getShoppingList();
+    const result = await getShoppingList(requestPath);
 
     // Then
-    expect(axios.get).toBeCalledWith('/');
+    expect(axios.get).toBeCalledWith(requestPath);
     expect(result).toBe('success');
   });
 });

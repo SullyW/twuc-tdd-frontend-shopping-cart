@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-export const getShoppingList = () => {
-  return axios.get('/');
+export const getShoppingList = (path) => {
+  return axios.get(path);
 };
