@@ -1,7 +1,16 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './index.css';
+import {getProducts} from './services';
 
 const ShoppingCart = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect( () => {
+    getProducts().then(data => {
+      setProducts(data);
+    });
+  }, []);
+
   return (
     <div className="wrapper">
       <div className="title">Shopping Cart</div>
@@ -13,6 +22,18 @@ const ShoppingCart = () => {
             <th className="table-cell align-right">数量</th>
           </tr>
         </thead>
+        <tbody>
+          {products.map(product => {
+            return (
+              <tr className="table-row" key={product.id}>
+                <td className="table-cell align-left">{product.name}</td>
+                <td className="table-cell align-right">{product.price.toFixed(2)}</td>
+                <td className="table-cell align-right">{product.count}</td>
+              </tr>
+            );
+          })}
+
+        </tbody>
       </table>
     </div>
   );
