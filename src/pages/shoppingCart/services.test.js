@@ -25,4 +25,15 @@ describe('service', function () {
     expect(getShoppingList).toBeCalledWith(BASE_URL);
     expect(result).toBe(productList);
   });
+
+  it('should return empty array when any error occurred', async ()  => {
+    //Given error
+    getShoppingList.mockRejectedValue(new Error('error'));
+
+    // When
+    const result = await getProducts();
+
+    // Then
+    expect(result).toEqual([]);
+  });
 });

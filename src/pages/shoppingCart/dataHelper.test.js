@@ -3,6 +3,7 @@ import {getShoppingList} from './dataHelper';
 
 jest.mock('axios');
 
+
 // - 数据层：stub axios 请求，使用 axios 发送获取列表的请求
 describe('dataHelper', () => {
   it('should get server data', async () => {
